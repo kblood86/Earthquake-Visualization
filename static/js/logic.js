@@ -1,6 +1,7 @@
 // Store API link
 var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 
+//color scale
 function markerSize(mag) {
   return mag * 30000;
 }
@@ -21,17 +22,17 @@ function markerColor(mag) {
   };
 }
 
-// Perform a GET request to the query URL
+// query URL
 d3.json(queryURL).then(function(data) {
-  // Once we get a response, send the data.features object to the createFeatures function
+  
   createFeatures(data.features);
 });
 
 function createFeatures(earthquakeData) {
 
   var earthquakes = L.geoJSON(earthquakeData, {
-  // Define a function we want to run once for each feature in the features array
-  // Give each feature a popup describing the place and time of the earthquake
+  // each feature in the features array
+  // popup describing the place and time of the earthquake
  onEachFeature : function (feature, layer) {
 
     layer.bindPopup("<h3>" + feature.properties.place +
@@ -48,13 +49,13 @@ function createFeatures(earthquakeData) {
     
 
 
-  // Sending our earthquakes layer to the createMap function
+  // Sending earthquakes layer to the createMap function
   createMap(earthquakes);
 }
 
 function createMap(earthquakes) {
 
-  // Define satelitemap and darkmap layers
+  // Define satellitemap and darkmap layers
   var satellitemap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
     maxZoom: 18,
@@ -88,7 +89,6 @@ function createMap(earthquakes) {
   });
 
   // Create a layer control
-  // Pass in our baseMaps and overlayMaps
   // Add the layer control to the map
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
