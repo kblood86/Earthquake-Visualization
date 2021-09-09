@@ -1,4 +1,4 @@
-# Leaflet Homework  
+# Earthquakes
 ## Visualizing Data 
 
 
